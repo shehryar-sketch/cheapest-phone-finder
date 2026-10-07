@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheapest Phone Finder</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f7fa;
+  color: #111;
+}
+header {
+  background: #111827;
+  color: white;
+  padding: 25px 15px;
+  text-align: center;
+}
+.container {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 20px;
+}
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 3px 15px #0001;
+}
+select, button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+#result {
+  margin-top: 25px;
+  padding: 20px;
+  background: #eef6ff;
+  border-radius: 10px;
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>📱 Cheapest Phone Finder</h1>
+<p>Find where phones are cheapest around the world</p>
+</header>
+
+<div class="container">
+<div class="card">
+
+<h2>Find a Phone</h2>
+
+<select id="phone">
+<option value="">Choose a phone</option>
+<option>iPhone 18 Pro</option>
+<option>iPhone 18 Pro Max</option>
+<option>Samsung Galaxy S26 Ultra</option>
+<option>Google Pixel 10 Pro</option>
+</select>
+
+<select id="storage">
+<option value="">Choose storage</option>
+<option>128GB</option>
+<option>256GB</option>
+<option>512GB</option>
+<option>1TB</option>
+</select>
+
+<button onclick="findPrice()">Find Cheapest Price</button>
+
+<div id="result"></div>
+
+</div>
+</div>
+
+<script>
+function findPrice() {
+  const phone = document.getElementById("phone").value;
+  const storage = document.getElementById("storage").value;
+  const result = document.getElementById("result");
+
+  if (!phone || !storage) {
+    result.style.display = "block";
+    result.innerHTML = "⚠️ Please choose both a phone and storage.";
+    return;
+  }
+
+  result.style.display = "block";
+  result.innerHTML = `
+    <h2>🌍 Cheapest Price</h2>
+    <p><b>Phone:</b> ${phone}</p>
+    <p><b>Storage:</b> ${storage}</p>
+    <p>🇺🇸 USA — Price comparison coming soon</p>
+    <p>🇦🇪 UAE — Price comparison coming soon</p>
+    <p>🇬🇧 UK — Price comparison coming soon</p>
+    <p>🇯🇵 Japan — Price comparison coming soon</p>
+  `;
+}
+</script>
+
+</body>
+</html>
