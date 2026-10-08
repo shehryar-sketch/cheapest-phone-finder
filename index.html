@@ -1,53 +1,164 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cheapest Phone Finder</title>
+
+<title>Cheapest Finder - Phones, Flights & Hotels</title>
+
 <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f5f7fa;
-  color: #111;
+* {
+  box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #111827;
+}
+
 header {
   background: #111827;
   color: white;
-  padding: 25px 15px;
   text-align: center;
+  padding: 45px 20px;
 }
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+header p {
+  margin: 12px 0 0;
+  font-size: 17px;
+  color: #d1d5db;
+}
+
 .container {
-  max-width: 700px;
-  margin: 30px auto;
-  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 35px 20px;
 }
-.card {
+
+.title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title h2 {
+  margin-bottom: 8px;
+  font-size: 28px;
+}
+
+.title p {
+  color: #6b7280;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.option {
   background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 3px 15px #0001;
+  border-radius: 18px;
+  padding: 35px 25px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: 0.2s;
 }
-select, button {
+
+.option:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 55px;
+  margin-bottom: 15px;
+}
+
+.option h3 {
+  font-size: 22px;
+  margin: 10px 0;
+}
+
+.option p {
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.option button {
   width: 100%;
-  padding: 14px;
-  margin-top: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-button {
+  padding: 13px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 9px;
   background: #2563eb;
   color: white;
-  border: none;
+  font-size: 16px;
   font-weight: bold;
+  cursor: pointer;
 }
-#result {
-  margin-top: 25px;
-  padding: 20px;
-  background: #eef6ff;
-  border-radius: 10px;
+
+.option button:hover {
+  background: #1d4ed8;
+}
+
+#searchBox {
   display: none;
+  margin-top: 35px;
+  background: white;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+#searchBox h2 {
+  margin-top: 0;
+}
+
+input, select {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.searchButton {
+  width: 100%;
+  padding: 14px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+@media (max-width: 700px) {
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  header h1 {
+    font-size: 30px;
+  }
 }
 </style>
 </head>
@@ -55,62 +166,147 @@ button {
 <body>
 
 <header>
-<h1>📱 Cheapest Phone Finder</h1>
-<p>Find where phones are cheapest around the world</p>
+  <h1>🔎 Cheapest Finder</h1>
+  <p>Find the best prices for phones, flights and hotels.</p>
 </header>
 
 <div class="container">
-<div class="card">
 
-<h2>Find a Phone</h2>
+  <div class="title">
+    <h2>What are you looking for?</h2>
+    <p>Choose an option below to find the best deal.</p>
+  </div>
 
-<select id="phone">
-<option value="">Choose a phone</option>
-<option>iPhone 18 Pro</option>
-<option>iPhone 18 Pro Max</option>
-<option>Samsung Galaxy S26 Ultra</option>
-<option>Google Pixel 10 Pro</option>
-</select>
+  <div class="options">
 
-<select id="storage">
-<option value="">Choose storage</option>
-<option>128GB</option>
-<option>256GB</option>
-<option>512GB</option>
-<option>1TB</option>
-</select>
+    <div class="option" onclick="showSearch('phone')">
+      <div class="icon">📱</div>
+      <h3>Cheapest Phones</h3>
+      <p>Compare phone prices and find the best deal.</p>
+      <button>Find Phones</button>
+    </div>
 
-<button onclick="findPrice()">Find Cheapest Price</button>
+    <div class="option" onclick="showSearch('flight')">
+      <div class="icon">✈️</div>
+      <h3>Cheapest Flights</h3>
+      <p>Search for affordable flights to your destination.</p>
+      <button>Find Flights</button>
+    </div>
 
-<div id="result"></div>
+    <div class="option" onclick="showSearch('hotel')">
+      <div class="icon">🏨</div>
+      <h3>Cheapest Hotels</h3>
+      <p>Find affordable hotels for your trip.</p>
+      <button>Find Hotels</button>
+    </div>
+
+  </div>
+
+  <div id="searchBox"></div>
 
 </div>
-</div>
+
+<footer>
+  © 2026 Cheapest Finder
+</footer>
 
 <script>
-function findPrice() {
-  const phone = document.getElementById("phone").value;
-  const storage = document.getElementById("storage").value;
-  const result = document.getElementById("result");
 
-  if (!phone || !storage) {
-    result.style.display = "block";
-    result.innerHTML = "⚠️ Please choose both a phone and storage.";
-    return;
+function showSearch(type) {
+
+  const box = document.getElementById("searchBox");
+
+  box.style.display = "block";
+
+  if (type === "phone") {
+
+    box.innerHTML = `
+      <h2>📱 Find Cheapest Phone</h2>
+
+      <label>Phone model</label>
+      <input type="text" placeholder="Example: iPhone 17">
+
+      <label>Country</label>
+      <input type="text" placeholder="Example: UAE">
+
+      <label>Storage</label>
+      <select>
+        <option>128GB</option>
+        <option>256GB</option>
+        <option>512GB</option>
+        <option>1TB</option>
+      </select>
+
+      <button class="searchButton">
+        Search Cheapest Phone
+      </button>
+    `;
+
   }
 
-  result.style.display = "block";
-  result.innerHTML = `
-    <h2>🌍 Cheapest Price</h2>
-    <p><b>Phone:</b> ${phone}</p>
-    <p><b>Storage:</b> ${storage}</p>
-    <p>🇺🇸 USA — Price comparison coming soon</p>
-    <p>🇦🇪 UAE — Price comparison coming soon</p>
-    <p>🇬🇧 UK — Price comparison coming soon</p>
-    <p>🇯🇵 Japan — Price comparison coming soon</p>
-  `;
+  if (type === "flight") {
+
+    box.innerHTML = `
+      <h2>✈️ Find Cheapest Flight</h2>
+
+      <label>From</label>
+      <input type="text" placeholder="Example: Dubai">
+
+      <label>Destination</label>
+      <input type="text" placeholder="Example: London">
+
+      <label>Departure date</label>
+      <input type="date">
+
+      <label>Passengers</label>
+      <select>
+        <option>1 Passenger</option>
+        <option>2 Passengers</option>
+        <option>3 Passengers</option>
+        <option>4 Passengers</option>
+      </select>
+
+      <button class="searchButton">
+        Search Cheapest Flight
+      </button>
+    `;
+
+  }
+
+  if (type === "hotel") {
+
+    box.innerHTML = `
+      <h2>🏨 Find Cheapest Hotel</h2>
+
+      <label>Destination</label>
+      <input type="text" placeholder="Example: Dubai">
+
+      <label>Check-in</label>
+      <input type="date">
+
+      <label>Check-out</label>
+      <input type="date">
+
+      <label>Guests</label>
+      <select>
+        <option>1 Guest</option>
+        <option>2 Guests</option>
+        <option>3 Guests</option>
+        <option>4 Guests</option>
+      </select>
+
+      <button class="searchButton">
+        Search Cheapest Hotel
+      </button>
+    `;
+  }
+
+  box.scrollIntoView({
+    behavior: "smooth"
+  });
 }
+
 </script>
 
 </body>
-</html>
+</html> 
